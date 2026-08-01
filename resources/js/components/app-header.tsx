@@ -61,10 +61,23 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
     const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 
+    const roles =
+        auth.user && 'roles' in auth.user
+            ? (auth.user.roles as { name: string }[])
+            : [];
+    const isAdmin = Array.isArray(roles) && roles.some((r) => r.name === 'admin');
+    const isOwner = Array.isArray(roles) && roles.some((r) => r.name === 'owner');
+
+    const dashboardHref = isAdmin
+        ? '/admin/dashboard'
+        : isOwner
+          ? '/owner/dashboard'
+          : '/dashboard';
+
     const mainNavItems: NavItem[] = [
         {
             title: 'Dashboard',
-            href: '/dashboard',
+            href: dashboardHref,
             icon: LayoutGrid,
         },
     ];
@@ -135,7 +148,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                     </div>
 
                     <Link
-                        href="/dashboard"
+                        href={dashboardHref}
                         prefetch
                         className="flex items-center space-x-2"
                     >

@@ -32,10 +32,16 @@ export function AppSidebar() {
     const isOwner =
         Array.isArray(roles) && roles.some((r) => r.name === 'owner');
 
+    const dashboardHref = isAdmin
+        ? '/admin/dashboard'
+        : isOwner
+          ? '/owner/dashboard'
+          : '/dashboard';
+
     const mainNavItems: NavItem[] = [
         {
             title: 'Dashboard',
-            href: '/dashboard',
+            href: dashboardHref,
             icon: LayoutGrid,
         },
         {
@@ -64,11 +70,6 @@ export function AppSidebar() {
         ...(isAdmin
             ? [
                   {
-                      title: 'Admin Dashboard',
-                      href: '/admin/dashboard',
-                      icon: LayoutGrid,
-                  } as NavItem,
-                  {
                       title: 'Manage Restaurants',
                       href: '/admin/restaurants',
                       icon: Shield,
@@ -93,7 +94,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href={dashboardHref} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
