@@ -261,6 +261,7 @@ class DatabaseSeeder extends Seeder
             $user->assignRole('customer');
             $customers[] = $user;
         }
+
         return $customers;
     }
 
@@ -317,31 +318,51 @@ class DatabaseSeeder extends Seeder
         $tables = $restaurant->tables;
         $times = ['12:00', '13:00', '18:00', '19:00', '19:30', '20:00'];
         $statuses = ['confirmed', 'confirmed', 'pending', 'completed', 'completed', 'cancelled'];
+        $guests = $this->demoGuests();
 
-        $pastCompleted = Reservation::factory()->count(5)->create([
-            'restaurant_id' => $restaurant->id,
-            'user_id' => fn () => $customers[array_rand($customers)]->id,
-            'table_id' => fn () => $tables->random()->id,
-            'guest_name' => fn () => fake()->name(),
-            'guest_email' => fn () => fake()->email(),
-            'guest_phone' => fn () => fake()->phoneNumber(),
-            'reservation_date' => fn () => fake()->dateTimeBetween('-2 months', '-1 day')->format('Y-m-d'),
-            'reservation_time' => fn () => $times[array_rand($times)],
-            'guests' => fn () => rand(1, 6),
-            'status' => 'completed',
-        ]);
+        for ($i = 0; $i < 5; $i++) {
+            Reservation::create([
+                'restaurant_id' => $restaurant->id,
+                'user_id' => $customers[array_rand($customers)]->id,
+                'table_id' => $tables->random()->id,
+                'guest_name' => $guests[$i]['name'],
+                'guest_email' => $guests[$i]['email'],
+                'guest_phone' => $guests[$i]['phone'],
+                'reservation_date' => now()->subDays(rand(1, 60))->format('Y-m-d'),
+                'reservation_time' => $times[array_rand($times)],
+                'guests' => rand(1, 6),
+                'status' => 'completed',
+            ]);
+        }
 
-        $upcoming = Reservation::factory()->count(4)->create([
-            'restaurant_id' => $restaurant->id,
-            'user_id' => fn () => $customers[array_rand($customers)]->id,
-            'table_id' => fn () => $tables->random()->id,
-            'guest_name' => fn () => fake()->name(),
-            'guest_email' => fn () => fake()->email(),
-            'guest_phone' => fn () => fake()->phoneNumber(),
-            'reservation_date' => fn () => fake()->dateTimeBetween('today', '+2 weeks')->format('Y-m-d'),
-            'reservation_time' => fn () => $times[array_rand($times)],
-            'guests' => fn () => rand(1, 8),
-            'status' => fn () => $statuses[array_rand($statuses)],
-        ]);
+        for ($i = 0; $i < 4; $i++) {
+            Reservation::create([
+                'restaurant_id' => $restaurant->id,
+                'user_id' => $customers[array_rand($customers)]->id,
+                'table_id' => $tables->random()->id,
+                'guest_name' => $guests[5 + $i]['name'],
+                'guest_email' => $guests[5 + $i]['email'],
+                'guest_phone' => $guests[5 + $i]['phone'],
+                'reservation_date' => now()->addDays(rand(1, 14))->format('Y-m-d'),
+                'reservation_time' => $times[array_rand($times)],
+                'guests' => rand(1, 8),
+                'status' => $statuses[array_rand($statuses)],
+            ]);
+        }
+    }
+
+    private function demoGuests(): array
+    {
+        return [
+            ['name' => 'Olivia Bennett', 'email' => 'olivia.bennett@example.com', 'phone' => '(555) 210-1001'],
+            ['name' => 'Liam Carter', 'email' => 'liam.carter@example.com', 'phone' => '(555) 210-1002'],
+            ['name' => 'Sophia Nguyen', 'email' => 'sophia.nguyen@example.com', 'phone' => '(555) 210-1003'],
+            ['name' => 'Noah Patel', 'email' => 'noah.patel@example.com', 'phone' => '(555) 210-1004'],
+            ['name' => 'Isabella Rossi', 'email' => 'isabella.rossi@example.com', 'phone' => '(555) 210-1005'],
+            ['name' => 'Ethan Kim', 'email' => 'ethan.kim@example.com', 'phone' => '(555) 210-1006'],
+            ['name' => 'Mia Thompson', 'email' => 'mia.thompson@example.com', 'phone' => '(555) 210-1007'],
+            ['name' => 'Lucas Fernandes', 'email' => 'lucas.fernandes@example.com', 'phone' => '(555) 210-1008'],
+            ['name' => 'Ava Kowalski', 'email' => 'ava.kowalski@example.com', 'phone' => '(555) 210-1009'],
+        ];
     }
 }
