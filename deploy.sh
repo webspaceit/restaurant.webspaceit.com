@@ -42,6 +42,6 @@ php artisan route:cache
 php artisan view:cache
 
 echo "==> Fixing permissions"
-chmod -R 775 storage bootstrap/cache
+find storage bootstrap/cache -type d -exec chmod 775 {} +
 
 echo "Deploy complete."
