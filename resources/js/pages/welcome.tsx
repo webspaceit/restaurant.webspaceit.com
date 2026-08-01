@@ -32,24 +32,32 @@ export default function Welcome({ restaurants }: Props) {
             <Head title="Welcome" />
 
             <div className="min-h-screen bg-background">
+                {/* Navigation */}
                 <header className="border-b">
                     <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                        <Link href={home().url} className="text-xl font-bold">RestaurantApp</Link>
+                        <Link href={home().url} className="text-xl font-bold text-[#007C47]">
+                            RestaurantApp
+                        </Link>
                         <nav className="flex items-center gap-4">
                             <Link href={login().url}>
-                                <Button variant="ghost">Log in</Button>
+                                <Button variant="ghost" className="text-[#007C47] hover:text-[#005c34]">
+                                    Log in
+                                </Button>
                             </Link>
                             <Link href={register().url}>
-                                <Button>Sign up</Button>
+                                <Button className="bg-[#007C47] hover:bg-[#005c34]">
+                                    Sign up
+                                </Button>
                             </Link>
                         </nav>
                     </div>
                 </header>
 
-                <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background py-24 sm:py-32">
+                {/* Hero Section */}
+                <section className="relative overflow-hidden bg-gradient-to-b from-[#007C47]/5 to-background py-24 sm:py-32">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="mx-auto max-w-2xl text-center">
-                            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+                            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl text-gray-900">
                                 Discover Great Food
                             </h1>
                             <p className="mt-6 text-lg text-muted-foreground">
@@ -66,16 +74,19 @@ export default function Welcome({ restaurants }: Props) {
                                         className="border-0 bg-transparent shadow-none focus-visible:ring-0"
                                     />
                                 </div>
-                                <Button type="submit" className="rounded-full">Search</Button>
+                                <Button type="submit" className="rounded-full bg-[#007C47] hover:bg-[#005c34]">
+                                    Search
+                                </Button>
                             </form>
                         </div>
                     </div>
                 </section>
 
+                {/* Featured Restaurants */}
                 <section className="py-16">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="mb-10">
-                            <h2 className="text-2xl font-bold">Featured Restaurants</h2>
+                            <h2 className="text-2xl font-bold text-gray-900">Featured Restaurants</h2>
                             <p className="mt-2 text-muted-foreground">Popular dining spots in your area</p>
                         </div>
                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -95,9 +106,65 @@ export default function Welcome({ restaurants }: Props) {
                     </div>
                 </section>
 
+                {/* Features Section */}
+                <section className="bg-[#007C47]/5 py-16">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="mb-10 text-center">
+                            <h2 className="text-3xl font-bold text-gray-900">Why Choose Us</h2>
+                            <p className="mt-2 text-muted-foreground">The best platform for restaurant reservations</p>
+                        </div>
+                        <div className="grid gap-8 md:grid-cols-3">
+                            <div className="text-center">
+                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#007C47]/10">
+                                    <Search className="h-8 w-8 text-[#007C47]" />
+                                </div>
+                                <h3 className="mb-2 text-lg font-semibold text-gray-900">Easy Discovery</h3>
+                                <p className="text-sm text-muted-foreground">Find the perfect restaurant with advanced search and filters</p>
+                            </div>
+                            <div className="text-center">
+                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#007C47]/10">
+                                    <Clock className="h-8 w-8 text-[#007C47]" />
+                                </div>
+                                <h3 className="mb-2 text-lg font-semibold text-gray-900">Instant Booking</h3>
+                                <p className="text-sm text-muted-foreground">Reserve tables in seconds with real-time availability</p>
+                            </div>
+                            <div className="text-center">
+                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#007C47]/10">
+                                    <Star className="h-8 w-8 text-[#007C47]" />
+                                </div>
+                                <h3 className="mb-2 text-lg font-semibold text-gray-900">Best Experience</h3>
+                                <p className="text-sm text-muted-foreground">Enjoy curated dining experiences at top restaurants</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* CTA Section */}
+                <section className="bg-[#007C47] py-16">
+                    <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+                        <h2 className="text-3xl font-bold text-white">Ready to Get Started?</h2>
+                        <p className="mt-4 text-lg text-white/90">
+                            Join thousands of users who trust RestaurantApp for their dining needs
+                        </p>
+                        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-4">
+                            <Link href={register().url}>
+                                <Button size="lg" className="bg-white text-[#007C47] hover:bg-gray-100">
+                                    Create Free Account
+                                </Button>
+                            </Link>
+                            <Link href={login().url}>
+                                <Button size="lg" variant="outline" className="bg-white text-[#007C47] hover:bg-gray-100">
+                                    Sign In
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Footer */}
                 <footer className="border-t py-8">
                     <div className="mx-auto max-w-7xl px-4 text-center text-sm text-muted-foreground sm:px-6 lg:px-8">
-                        &copy; {new Date().getFullYear()} RestaurantApp. All rights reserved.
+                        <p>&copy; {new Date().getFullYear()} RestaurantApp. All rights reserved.</p>
                     </div>
                 </footer>
             </div>
@@ -122,7 +189,7 @@ function RestaurantCard({ id, name, cuisine, rating, image, address, hours }: {
             <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                     <div>
-                        <h3 className="font-semibold">{name}</h3>
+                        <h3 className="font-semibold text-gray-900">{name}</h3>
                         <Badge variant="secondary" className="mt-1">{cuisine}</Badge>
                     </div>
                     {rating && (
@@ -144,7 +211,7 @@ function RestaurantCard({ id, name, cuisine, rating, image, address, hours }: {
                 </div>
             </CardContent>
             <CardFooter className="border-t p-4">
-                <Button className="w-full" asChild>
+                <Button className="w-full bg-[#007C47] hover:bg-[#005c34]" asChild>
                     <Link href={`/restaurants/${id}/book`}>Book a Table</Link>
                 </Button>
             </CardFooter>

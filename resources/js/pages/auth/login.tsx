@@ -87,7 +87,7 @@ export default function Login({ status, canResetPassword }: Props) {
             <Head title="Log in" />
             <PasskeyVerify />
 
-            <div className="flex h-dvh bg-gradient-to-br from-amber-600 to-orange-500">
+            <div className="flex h-dvh bg-gradient-to-br from-[#007C47] to-[#005c34]">
                 <div className="flex h-dvh w-full max-w-[1200px] flex-col overflow-hidden bg-white shadow-2xl md:mx-auto md:flex-row">
                     <div className="flex flex-col items-center overflow-y-auto p-8 md:w-1/2 md:p-10">
                         <div className="mb-6 flex flex-col items-center gap-3">
@@ -95,7 +95,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                 href={home()}
                                 className="flex flex-col items-center gap-2 font-medium"
                             >
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-500">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#007C47]">
                                     <BrandLogo className="size-10 fill-white" />
                                 </div>
                             </Link>
@@ -111,7 +111,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     key={role}
                                     type="button"
                                     onClick={() => fillRole(role)}
-                                    className="cursor-pointer rounded-full border border-amber-500 bg-amber-500 px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-amber-600"
+                                    className="cursor-pointer rounded-full border border-[#007C47] bg-[#007C47] px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[#005c34]"
                                 >
                                     {role}
                                 </button>
@@ -180,7 +180,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     <Checkbox
                                         id="remember"
                                         tabIndex={3}
-                                        className="text-amber-500"
+                                        className="text-[#007C47]"
                                         checked={remember}
                                         onCheckedChange={(checked) =>
                                             setRemember(checked === true)
@@ -196,7 +196,7 @@ export default function Login({ status, canResetPassword }: Props) {
 
                                 <Button
                                     type="submit"
-                                    className="h-11 w-full rounded-lg bg-amber-500 text-base font-semibold hover:bg-amber-600"
+                                    className="h-11 w-full rounded-lg bg-[#007C47] text-base font-semibold hover:bg-[#005c34]"
                                     tabIndex={4}
                                     disabled={submitting}
                                     data-test="login-button"
@@ -209,13 +209,13 @@ export default function Login({ status, canResetPassword }: Props) {
                             <div className="flex items-center justify-between text-sm">
                                 <Link
                                     href={register()}
-                                    className="text-amber-600 hover:text-amber-700 hover:underline"
+                                    className="text-[#007C47] hover:text-[#005c34] hover:underline"
                                 >
                                     Create Account
                                 </Link>
                                 <Link
                                     href={home()}
-                                    className="text-amber-600 hover:text-amber-700 hover:underline"
+                                    className="text-[#007C47] hover:text-[#005c34] hover:underline"
                                 >
                                     Front Site
                                 </Link>
