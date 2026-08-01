@@ -18,6 +18,7 @@ type Props = {
 export default function Register({ passwordRules }: Props) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [submitting, setSubmitting] = useState(false);
@@ -34,6 +35,7 @@ export default function Register({ passwordRules }: Props) {
             {
                 name,
                 email,
+                phone,
                 password,
                 password_confirmation: passwordConfirmation,
             },
@@ -128,6 +130,30 @@ export default function Register({ passwordRules }: Props) {
 
                                 <div className="grid gap-2">
                                     <Label
+                                        htmlFor="phone"
+                                        className="text-sm font-medium text-gray-700"
+                                    >
+                                        Phone / Mobile
+                                    </Label>
+                                    <Input
+                                        id="phone"
+                                        type="tel"
+                                        tabIndex={3}
+                                        autoComplete="tel"
+                                        placeholder="+1 555 123 4567"
+                                        className="h-11 rounded-lg border-gray-300 text-black"
+                                        value={phone}
+                                        onChange={(e) =>
+                                            setPhone(e.target.value)
+                                        }
+                                    />
+                                    <InputError
+                                        message={registerErrors.phone}
+                                    />
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label
                                         htmlFor="password"
                                         className="text-sm font-medium text-gray-700"
                                     >
@@ -136,7 +162,7 @@ export default function Register({ passwordRules }: Props) {
                                     <PasswordInput
                                         id="password"
                                         required
-                                        tabIndex={3}
+                                        tabIndex={4}
                                         autoComplete="new-password"
                                         placeholder="Password"
                                         className="h-11 rounded-lg border-gray-300 text-black"
@@ -161,7 +187,7 @@ export default function Register({ passwordRules }: Props) {
                                     <PasswordInput
                                         id="password_confirmation"
                                         required
-                                        tabIndex={4}
+                                        tabIndex={5}
                                         autoComplete="new-password"
                                         placeholder="Confirm password"
                                         className="h-11 rounded-lg border-gray-300 text-black"
@@ -183,7 +209,7 @@ export default function Register({ passwordRules }: Props) {
                                 <Button
                                     type="submit"
                                     className="mt-2 h-11 w-full rounded-lg bg-amber-500 text-base font-semibold hover:bg-amber-600"
-                                    tabIndex={5}
+                                    tabIndex={6}
                                     disabled={submitting}
                                     data-test="register-user-button"
                                 >
@@ -198,7 +224,7 @@ export default function Register({ passwordRules }: Props) {
                                     href={login()}
                                     className="text-amber-600 hover:text-amber-700 hover:underline"
                                     data-test="team-invitation-login-link"
-                                    tabIndex={6}
+                                    tabIndex={7}
                                 >
                                     Sign In
                                 </Link>

@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { TrendingUp, Users, CalendarCheck, DollarSign } from 'lucide-react';
+import { TrendingUp, Users, CalendarCheck, DollarSign, Mail, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -20,9 +20,19 @@ type RecentReservation = {
     status: string;
 };
 
+type Customer = {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    total_reservations: number;
+    last_visit: string;
+};
+
 type Props = {
     analytics: Analytics;
     recentReservations: RecentReservation[];
+    customers: Customer[];
 };
 
 const statusColor: Record<string, string> = {
@@ -32,7 +42,7 @@ const statusColor: Record<string, string> = {
     completed: 'bg-blue-100 text-blue-800',
 };
 
-export default function Dashboard({ analytics, recentReservations }: Props) {
+export default function Dashboard({ analytics, recentReservations, customers }: Props) {
     const stats = [
         {
             title: 'Total Reservations',
@@ -129,6 +139,43 @@ export default function Dashboard({ analytics, recentReservations }: Props) {
                         </CardContent>
                     </Card>
                 </div>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Recent Customers</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {customers.length === 0 ? (
+                            <p className="text-sm text-muted-foreground">No customers yet.</p>
+                        ) : (
+                            <div className="space-y-3">
+                                {customers.map((customer) => (
+                                    <div key={customer.id} className="flex items-center justify-between rounded-lg border p-3">
+                                        <div className="flex-1">
+                                            <p className="text-sm font-medium">{customer.name}</p>
+                                            <div className="flex items-center gap-4 mt-1">
+                                                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                                                    <Mail className="h-3 w-3" />
+                                                    {customer.email}
+                                                </span>
+                                                {customer.phone && (
+                                                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                                                        <Phone className="h-3 w-3" />
+                                                        {customer.phone}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-sm font-medium">{customer.total_reservations} reservations</p>
+                                            <p className="text-xs text-muted-foreground">Last visit: {customer.last_visit}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
             </div>
         </>
     );

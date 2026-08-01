@@ -18,7 +18,7 @@ type Reservation = {
     created_at: string;
     table: { number: number } | null;
     restaurant: { name: string; id: number };
-    user: { name: string; email: string } | null;
+    user: { name: string; email: string; phone: string | null } | null;
 };
 
 type Props = { reservation: Reservation };
@@ -66,7 +66,12 @@ export default function Show({ reservation: r }: Props) {
                     <CardContent className="space-y-3">
                         <div><span className="text-sm text-muted-foreground">Name</span><p className="font-medium">{r.guest_name}</p></div>
                         <div><span className="text-sm text-muted-foreground">Email</span><p className="font-medium">{r.guest_email}</p></div>
-                        {r.guest_phone && <div><span className="text-sm text-muted-foreground">Phone</span><p className="font-medium">{r.guest_phone}</p></div>}
+                        {(r.guest_phone || r.user?.phone) && (
+                            <div>
+                                <span className="text-sm text-muted-foreground">Phone</span>
+                                <p className="font-medium">{r.guest_phone || r.user?.phone}</p>
+                            </div>
+                        )}
                         {r.user && <div><span className="text-sm text-muted-foreground">Account</span><p className="font-medium">{r.user.name}</p></div>}
                     </CardContent>
                 </Card>

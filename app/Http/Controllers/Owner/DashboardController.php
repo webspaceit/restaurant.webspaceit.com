@@ -27,7 +27,7 @@ class DashboardController extends Controller
             ? round(($totalReservations / ($totalTables * 30)) * 100)
             : 0;
 
-        $recentReservations = Reservation::with(['restaurant', 'table'])
+        $recentReservations = Reservation::with(['restaurant', 'table', 'user'])
             ->whereIn('restaurant_id', $restaurantIds)
             ->latest()
             ->take(5)
@@ -42,6 +42,27 @@ class DashboardController extends Controller
                 'status' => $r->status,
             ]);
 
+        // Get customer data - users who have made reservations
+        $customers = Reservation::with(['user'])
+            ->whereIn('restaurant_id', $restaurantIds)
+            ->whereNotNull('user_id')
+            ->get()
+            ->filter(fn ($r) => $r->user !== null)
+            ->groupBy('user_id')
+            ->map(function ($reservations) {
+                $latestReservation = $reservations->sortByDesc('reservation_date')->first();
+                return [
+                    'id' => $latestReservation->user->id,
+                    'name' => $latestReservation->user->name,
+                    'email' => $latestReservation->user->email,
+                    'phone' => $latestReservation->user->phone,
+                    'total_reservations' => $reservations->count(),
+                    'last_visit' => $latestReservation->reservation_date->format('Y-m-d'),
+                ];
+            })
+            ->take(5)
+            ->values();
+
         return Inertia::render('owner/Dashboard', [
             'analytics' => [
                 'totalReservations' => $totalReservations,
@@ -50,6 +71,7 @@ class DashboardController extends Controller
                 'occupancyRate' => $occupancyRate,
             ],
             'recentReservations' => $recentReservations,
+            'customers' => $customers,
         ]);
     }
 }

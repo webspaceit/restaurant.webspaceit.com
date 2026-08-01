@@ -29,6 +29,7 @@ class ReservationController extends Controller
         $validated['status'] = 'pending';
         $validated['guest_name'] ??= $user?->name;
         $validated['guest_email'] ??= $user?->email;
+        $validated['guest_phone'] ??= $user?->phone;
 
         if (isset($validated['table_id'])) {
             $table = Table::findOrFail($validated['table_id']);
