@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+
+class EmailVerificationNotificationController extends Controller
+{
+    public function store(Request $request)
+    {
+        // Handled by Laravel Fortify
+    }
+}
